@@ -1,17 +1,25 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import searchicon from '../attachments/searchicon.png'
 import Friend from './Friend'
+import PendingFriend from './PendingFriend'
 
 const MainView = ({active, user, friends, setFriends}) => {
   const [search, setSearch] = useState("")
+  const [pending, setPending] = useState([])
 
-  // console.log(friends)
+  useEffect(() => {
+    if (active.Pending) {
+      fetch('/pending')
+        .then(r => r.json())
+        .then(d => setPending(d))
+    }
+  }, [active])
 
   const handleSubmit = (e) => {
     e.preventDefault(e)
     if (active["Add Friend"]) {
       if (friends.filter(v => v.friend.username !== search).length === friends.length && search !== user.username) {
-        fetch('http://localhost:3000/addfriend', {
+        fetch('/addfriend', {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -21,14 +29,20 @@ const MainView = ({active, user, friends, setFriends}) => {
             user_id: user.id
           })
         })
-        .then(r => r.json())
-        .then(d => {
-          setSearch('')
-          setFriends(v => [...v, d])
+        .then(r => {
+          if (r.ok) {
+            r.json().then(d => {
+              setSearch('')
+              setFriends(v => [...v, d])
+            })
+          } else {
+            alert('User not found!')
+          }
         })
+        
       } else {
         // TEMPORARY
-        alert('User not found')
+        alert('User already added')
       }
     }
   }
@@ -41,6 +55,15 @@ const MainView = ({active, user, friends, setFriends}) => {
     e.friend.username.toLowerCase().includes(search.toLowerCase()) 
   ))
 
+  const renderedPending = pending
+
+  const handleFriendLabel = () => {
+    const trueIndex = Object.values(active).indexOf(true)
+    const trueKey = Object.keys(active)[trueIndex]
+    if (active.Pending) return `${trueKey} - ${pending.length}`.toUpperCase()
+    return `${trueKey} - ${friends.length}`.toUpperCase()
+  }
+
   return (
     <div className='MainView overflow-scroll overflow-x-hidden'>
       {active["Add Friend"] && <label htmlFor="friend-search" className='absolute top-4 left-8 z-50 text-gray-600'>Add Friend:</label>}
@@ -52,11 +75,17 @@ const MainView = ({active, user, friends, setFriends}) => {
       
       {!active["Add Friend"] && (
         <>
-          <h1 className='online absolute top-20 left-6 text-gray-400 text-sm'>ONLINE - {friends.length}</h1>
+          <h1 className='online absolute top-20 left-6 text-gray-400 text-sm'>{handleFriendLabel()}</h1>
           <div className='friends-list absolute w-full h-20'>
-            {renderedFriends.map((e, i) => (
-              <Friend key={i} e={e} setFriends={setFriends}/>
-            ))}
+            {active.Pending ? (
+              renderedPending.map((e, i) => (
+                <PendingFriend key={i} pend={e} setPending={setPending} setFriends={setFriends}/>
+              ))
+              ) : (
+              renderedFriends.map((e, i) => (
+                <Friend key={i} e={e} setFriends={setFriends}/>
+              ))
+            )}
           </div>
         </>
       )}

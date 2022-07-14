@@ -1,5 +1,4 @@
 class FriendsController < ApplicationController
-  skip_before_action :authorize, only: [:create, :index, :destroy] # remove once sessions are set up
 
   def create
     friend = User.find_by(username: params[:friend])
@@ -20,7 +19,25 @@ class FriendsController < ApplicationController
 
   def destroy
     friendship = Friend.find(params[:id])
+    friend = friendship.friend_id
+    friendships = Friend.find_by(user_id: friend, friend_id: session[:user_id])
     friendship.delete
+    friendships.delete
     render json: {}, status: :ok
+  end
+
+  def pending
+    friended_by = Friend.where(friend_id: session[:user_id])
+    friended = Friend.where(user_id: session[:user_id]).map { |e| e.friend_id }
+    pending = friended_by.filter { |e| !friended.include?(e.user_id) }
+    pending_sorted = pending.sort {|a, b| a.created_at <=> b.created_at}.reverse
+    render json: pending_sorted
+  end
+
+  def accept
+    friend = User.find(params[:friend])
+    user = User.find(session[:user_id])
+    friendship = Friend.create!(friend_id: friend.id, user_id: session[:user_id])
+    render json: {id: friendship.id, friend: {id: friend.id, username: friend.username, pfp: friend.pfp}, user: {id: user.id, username: user.username, pfp: user.pfp}}, status: :created
   end
 end

@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  skip_before_action :authorize, only: [:create, :index]
+  skip_before_action :authorize, only: [:index]
   def create
     message = Message.create(edited: false, text: params[:text], user_id: params[:user_id], recipient_id: params[:recipient_id])
     render json: message, status: :created
@@ -9,7 +9,7 @@ class MessagesController < ApplicationController
     sent = Message.where(user: params[:user_id], recipient: params[:recipient_id])
     recieved = Message.where(user: params[:recipient_id], recipient: params[:user_id])
     all = sent + recieved
-    sorted = all.sort {|a, b| a.created_at <=> b.created_at}
+    sorted = all.sort {|a, b| a.created_at <=> b.created_at}.reverse
     render json: sorted
   end
 end

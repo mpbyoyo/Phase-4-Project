@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import friendicon from '../attachments/friendicon.png'
 
-const NavView = ({active, setActive}) => {
+const NavView = ({active, setActive, dms}) => {
   const handleClick = (e) => {
     let preActive = {
       Online: false,

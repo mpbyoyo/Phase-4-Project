@@ -1,13 +1,17 @@
 import '../scss/App.scss';
 import Login from './Login';
 import Home from './Home';
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
+
+const UserContext = createContext(null)
+export { UserContext }
 
 function App() {
   const [user, setUser] = useState(null)
+  
 
   useEffect(() => {
-    fetch(`http://localhost:3000/me`).then(r => {
+    fetch(`/me`).then(r => {
       if (r.ok) {
         r.json().then(d => setUser(d))
       }
@@ -16,9 +20,11 @@ function App() {
   }, [])
   
   return (
-    <div className="App">
-      {user ? <Home user={user} /> : <Login setUser={setUser} />}
-    </div>
+    <UserContext.Provider value={setUser}>
+      <div className="App">
+        {user ? <Home user={user}/> : <Login setUser={setUser} />}
+      </div>
+    </UserContext.Provider>
   );
 }
 

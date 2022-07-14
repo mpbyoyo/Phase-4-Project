@@ -26,11 +26,19 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
 }
 
 .Home {
+  overflow: hidden;
   opacity: 1.6;
   font-family: $font-secondary;
 
   .server-bar {
     width: 4.5rem;
+
+    .home-button {
+      border-radius: 25px;
+    }
+    .home-button:hover {
+      border-radius: 10px;
+    }
   }
 
   .fc-bar {
@@ -44,17 +52,47 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
       
     // }
 
+    .fc-list-label {
+      font-weight: 800;
+    }
+
     .fc-list {
       overflow: auto;
+      font-weight: 600;
+      height: 60rem;
     }
 
   }
 
   .main-view {
     width: 74.4rem;
-    height: 59.15rem;
+    // height: 59.15rem;
+    height: 100%;
     left: 19.5rem;
-    top: 3.01rem;
+    // top: 3.01rem;
+
+    .DMs {
+      // .DM {
+
+      // }
+
+      // input {
+        
+      // }
+
+      .dm-container{
+        height: 87vh;
+        display: flex;
+        flex-direction: column-reverse;
+      }
+
+      .dm-message{
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        hyphens: auto;
+        white-space: normal; //this is the one that gets you all the time
+      }
+    }
 
     .online {
       font-weight: 600;
@@ -66,7 +104,7 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
 
     .friends-list {
       top: 6.5rem;
-      height: 52.3rem;
+      height: fit-content;
       overflow: auto;
 
       .Friend {
@@ -93,8 +131,12 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
   .activity-tab {
     right: 0;
     width: 26.1rem;
-    height: 59.15rem;
+    height: 95vh;
     z-index: 50;
     top: 3.01rem;
   }
+}
+
+.pfp {
+  border-radius: 9999px;
 }

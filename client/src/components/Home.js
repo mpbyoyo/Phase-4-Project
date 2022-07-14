@@ -21,7 +21,7 @@ const Home = ({user}) => {
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:3000/friends/${user.id}`, {
+      fetch(`/friends/${user.id}`, {
         method: "GET"
       })
       .then(r => r.json())
@@ -33,7 +33,6 @@ const Home = ({user}) => {
 
   return (
     <>
-      <img src={refimg} alt="refimg" className='absolute opacity-100'/>
       <div className='Home absolute h-screen w-screen select-none'>
         
         <div className='server-bar h-screen bg-zinc-200 absolute'>
@@ -49,7 +48,7 @@ const Home = ({user}) => {
         </div>
 
         <div className='nav-view absolute bg-white top-0'>
-          {!dms && <NavView active={active} setActive={setActive}/>}
+          {!dms && <NavView active={active} setActive={setActive} friend={friends.map(e => e.friend).filter(e => e.id === dms.id)[0]}/>}
         </div>
 
         <div className="activity-tab absolute bg-white border-l-2 border-t-2"></div>

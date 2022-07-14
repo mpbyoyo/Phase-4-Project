@@ -10,6 +10,7 @@ const Login = ({setUser}) => {
     password: false,
     passwordConfirmation: false
   })
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -34,7 +35,7 @@ const Login = ({setUser}) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (signup) {
-      fetch('http://localhost:3000/signup', {
+      fetch('/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -93,7 +94,7 @@ const Login = ({setUser}) => {
         }
       })
     } else {
-      fetch('http://localhost:3000/login', {
+      fetch('/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +111,6 @@ const Login = ({setUser}) => {
         } else if (d.errors) {
           alert("Unknown error")
         } else {
-          console.log(d)
           setUser(d)
         }
       })
@@ -159,9 +159,6 @@ const Login = ({setUser}) => {
                 }}>Sign up!</h2>
             </div>
               }
-        
-        
-
       </div>
     </div>
   )

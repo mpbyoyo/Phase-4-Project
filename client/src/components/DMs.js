@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import DM from './DM'
+import HarmonyIcon from '../attachments/HarmonyIcon.png'
 
 const DMs = ({dms, user}) => {
   const [messages, setMessages] = useState([])
@@ -15,7 +16,7 @@ const DMs = ({dms, user}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    fetch(`http://localhost:3000/send`, {
+    fetch(`/send`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -27,19 +28,28 @@ const DMs = ({dms, user}) => {
       })
     })
     .then(r => r.json())
-    .then(d => setMessages(messages => [...messages, d]))
+    .then(d => setMessages(messages => [d, ...messages]))
     setM('')
   }
 
   const renderedMessages = messages
 
   return (
-    <div className='DMs'>
-      {renderedMessages.map((message, i) => (
-        <DM key={i} message={message} user={user} recipient={dms}/>
-      ))}
-      <form onSubmit={handleSubmit}>
-        <input type="text" value={m} onChange={(e) => setM(e.target.value)} />
+    <div className='DMs mt-5 w-full'>
+      <div className='h-6'></div>
+      <div className='dm-container overflow-auto w-full'>
+        
+        {renderedMessages.map((message, i) => (
+          <DM key={i} message={message} user={user} recipient={dms}/>
+        ))}
+        <div className='mb-5 ml-5'>
+          <img src={dms.pfp || HarmonyIcon} alt="pfp" className='w-36 rounded-full' />
+          <h1 className='text-6xl text-gray-900'>{dms.username}</h1>
+          <h2 className='text-gray-600'>This is the beginning of your message history with <strong>@{dms.username}.</strong></h2>
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className="absolute left-1/2 -translate-x-1/2 bottom-20 w-11/12">
+        <input type="text" placeholer={`message @${dms.id}`} value={m} onChange={(e) => setM(e.target.value)} className='absolute bg-gray-200 outline-none rounded-md p-2 w-full left-1/2 -translate-x-1/2'/>
       </form>
     </div>
   )

@@ -6,8 +6,9 @@ Rails.application.routes.draw do
 
   post '/addfriend', to: 'friends#create'
   get '/friends/:user_id/', to: 'friends#index'
-  get '/friends/pending/:user_id', to: 'friends#pending'
+  get '/pending', to: 'friends#pending'
   delete '/friends/:id', to: 'friends#destroy'
+  post '/acceptfriend', to: 'friends#accept'
 
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
