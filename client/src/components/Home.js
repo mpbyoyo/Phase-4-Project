@@ -50,8 +50,6 @@ const Home = ({user}) => {
         <div className='nav-view absolute bg-white top-0'>
           {!dms && <NavView active={active} setActive={setActive} friend={friends.map(e => e.friend).filter(e => e.id === dms.id)[0]}/>}
         </div>
-
-        <div className="activity-tab absolute bg-white border-l-2 border-t-2"></div>
       </div>
     </>
   )

@@ -65,7 +65,8 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
   }
 
   .main-view {
-    width: 74.4rem;
+    width: 80vw;
+    // width: 74.4rem;
     // height: 59.15rem;
     height: 100%;
     left: 19.5rem;
@@ -98,6 +99,7 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
     .MainView {
       .searchicon{
         top: 4.3rem;
+        right: 11vw;
       }
     }
 
@@ -106,7 +108,7 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
     }
 
     .search-bar {
-      width: 95.24%;
+      width: 68.5vw;
     }
 
     .friends-list {
@@ -117,7 +119,7 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
       .Friend {
         border-top-width: 1px;
         height: 3.84rem;
-        width: 58vw;
+        width: 70vw;
         font-weight: 600;
       }
     }
