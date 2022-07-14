@@ -3,6 +3,7 @@ class CreateFriends < ActiveRecord::Migration[6.1]
     create_table :friends do |t|
       t.integer :friend_id
       t.belongs_to :user, null: false, foreign_key: true
+      t.integer :last_message
 
       t.timestamps
     end

@@ -51,7 +51,7 @@ const MainView = ({active, user, friends, setFriends}) => {
     setSearch(e.target.value)
   }
 
-  const renderedFriends = friends.filter((e) => (
+  const renderedFriends = friends.sort((a, b) => a.friend.username.localeCompare(b.friend.username)).filter((e) => (
     e.friend.username.toLowerCase().includes(search.toLowerCase()) 
   ))
 
@@ -66,17 +66,17 @@ const MainView = ({active, user, friends, setFriends}) => {
 
   return (
     <div className='MainView overflow-scroll overflow-x-hidden'>
-      {active["Add Friend"] && <label htmlFor="friend-search" className='absolute top-4 left-8 z-50 text-gray-600'>Add Friend:</label>}
+      {active["Add Friend"] && <label htmlFor="friend-search" className='absolute top-12 left-8 z-50 text-gray-600'>Add Friend:</label>}
       <form id="friend-search" onSubmit={handleSubmit}>
-        <input type="text" placeholder='Search' className={`search-bar bg-gray-200 rounded-sm absolute ${active["Add Friend"] ? 'top-10' : 'top-4 '} left-8 p-1 pl-2 outline-none`} value={search} onChange={handleChange}/>
-        <img src={searchicon} alt="searchicon" className='absolute w-5 right-7 top-5'/>
+        <input type="text" placeholder='Search' className={`search-bar bg-gray-200 rounded-sm absolute ${active["Add Friend"] ? 'top-20' : 'top-16 '} left-8 p-1 pl-2 outline-none`} value={search} onChange={handleChange}/>
+        <img src={searchicon} alt="searchicon" className='searchicon absolute w-5 right-7'/>
       </form>
 
       
       {!active["Add Friend"] && (
         <>
-          <h1 className='online absolute top-20 left-6 text-gray-400 text-sm'>{handleFriendLabel()}</h1>
-          <div className='friends-list absolute w-full h-20'>
+          <h1 className='online absolute top-28 left-6 text-gray-400 text-sm'>{handleFriendLabel()}</h1>
+          <div className='friends-list absolute w-full mt-10 h-20'>
             {active.Pending ? (
               renderedPending.map((e, i) => (
                 <PendingFriend key={i} pend={e} setPending={setPending} setFriends={setFriends}/>

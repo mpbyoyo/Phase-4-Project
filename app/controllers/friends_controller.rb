@@ -3,7 +3,7 @@ class FriendsController < ApplicationController
   def create
     friend = User.find_by(username: params[:friend])
     user = User.find(params[:user_id])
-    friendship = Friend.create!(friend_id: friend.id, user_id: params[:user_id])
+    friendship = Friend.create!(friend_id: friend.id, user_id: params[:user_id], last_message: Time.new)
     render json: {id: friendship.id, friend: {id: friend.id, username: friend.username, pfp: friend.pfp}, user: {id: user.id, username: user.username, pfp: user.pfp}}, status: :created
   end
 
@@ -12,7 +12,7 @@ class FriendsController < ApplicationController
     map_friends = friendships.map do |e|
       friend = User.find(e.friend_id)
       user = User.find(params[:user_id])
-      {id: e.id, friend: {id: friend.id, username: friend.username, pfp: friend.pfp}, user: {id: user.id, username: user.username, pfp: user.pfp}}
+      {id: e.id, friend: {id: friend.id, username: friend.username, pfp: friend.pfp}, user: {id: user.id, username: user.username, pfp: user.pfp}, last_message: e.last_message}
     end
     render json: map_friends
   end

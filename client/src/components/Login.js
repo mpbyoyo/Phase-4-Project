@@ -106,7 +106,7 @@ const Login = ({setUser}) => {
       })
       .then(r => r.json())
       .then(d => {
-        if (d.errors && d.errors[0] === "Invalid usernmae or password") {
+        if (d.errors && d.errors[0] === "Invalid username or password") {
           setinvalidLogin(true)
         } else if (d.errors) {
           alert("Unknown error")

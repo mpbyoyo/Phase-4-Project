@@ -12,7 +12,7 @@ const DM = ({message, user, recipient}) => {
   }, [recipient])
 
   return (
-    <div className='DM ml-4 mb-3 hover:bg-gray-100 p-1 rounded-sm mt-1'>
+    <div className='DM ml-4 mb-3 hover:bg-gray-100 transition-all duration-75 p-1 rounded-sm mt-1'>
       <img src={pfData[message.user_id] && (pfData[message.user_id].pfp || HarmonyIcon)} alt="" className='relative top-3 pfp w-10 inline-block'/>
       <p className='inline-block ml-2 dm-username text-gray-900'>{`${pfData[message.user_id] && pfData[message.user_id].username}`}</p>
       <p className='relative left-12 w-10/12 bottom-2 text-gray-600 dm-message'>{`${message.text}`}</p>

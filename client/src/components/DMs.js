@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import DM from './DM'
 import HarmonyIcon from '../attachments/HarmonyIcon.png'
 
-const DMs = ({dms, user}) => {
+const DMs = ({dms, user, setFriends}) => {
   const [messages, setMessages] = useState([])
   const [m, setM] = useState('')
 
@@ -13,6 +13,12 @@ const DMs = ({dms, user}) => {
     .then(r => r.json())
     .then(d => setMessages(d))
   }, [dms])
+
+  useEffect(() => {
+    fetch(`/friends/${user.id}`)
+      .then(r => r.json())
+      .then(d => setFriends(d))
+  }, [messages])
 
   const handleSubmit = (event) => {
     event.preventDefault()

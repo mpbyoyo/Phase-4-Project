@@ -44,7 +44,7 @@ const Home = ({user}) => {
         </div>
 
         <div className='main-view absolute bg-white border-t-2'>
-          {dms ? <DMs dms={dms} user={user}/> : <MainView active={active} user={user} friends={friends} setFriends={setFriends}/>}
+          {dms ? <DMs dms={dms} setFriends={setFriends} user={user}/> : <MainView active={active} user={user} friends={friends} setFriends={setFriends}/>}
         </div>
 
         <div className='nav-view absolute bg-white top-0'>

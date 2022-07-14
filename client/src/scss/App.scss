@@ -92,6 +92,13 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
         hyphens: auto;
         white-space: normal; //this is the one that gets you all the time
       }
+      
+    }
+
+    .MainView {
+      .searchicon{
+        top: 4.3rem;
+      }
     }
 
     .online {
@@ -110,6 +117,7 @@ $font-secondary: "ABC Ginto Normal", "Helvetical Neue", Helvetica, Arial, sans-s
       .Friend {
         border-top-width: 1px;
         height: 3.84rem;
+        width: 58vw;
         font-weight: 600;
       }
     }
