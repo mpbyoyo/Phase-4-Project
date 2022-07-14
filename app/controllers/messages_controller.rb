@@ -10,8 +10,8 @@ class MessagesController < ApplicationController
   end
 
   def index
-    sent = Message.where(user: params[:user_id], recipient: params[:recipient_id])
-    recieved = Message.where(user: params[:recipient_id], recipient: params[:user_id])
+    sent = Message.where(user: session[:user_id], recipient: params[:recipient_id])
+    recieved = Message.where(user: params[:recipient_id], recipient: session[:user_id])
     all = sent + recieved
     sorted = all.sort {|a, b| a.created_at <=> b.created_at}.reverse
     render json: sorted

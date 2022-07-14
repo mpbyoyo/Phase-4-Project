@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
 
   post '/send', to: 'messages#create'
-  get '/messages/:user_id/:recipient_id', to: 'messages#index'
+  get '/messages/:recipient_id', to: 'messages#index'
 
   post '/addfriend', to: 'friends#create'
   get '/friends/:user_id/', to: 'friends#index'

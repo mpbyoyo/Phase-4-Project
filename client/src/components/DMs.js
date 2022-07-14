@@ -7,7 +7,7 @@ const DMs = ({dms, user, setFriends}) => {
   const [m, setM] = useState('')
 
   useEffect(() => {
-    fetch(`http://localhost:3000/messages/${user.id}/${dms.id}`, {
+    fetch(`/messages/${dms.id}`, {
       method: 'GET'
     })
     .then(r => r.json())
