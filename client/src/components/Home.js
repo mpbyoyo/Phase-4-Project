@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, createContext} from 'react'
 import refimg from '../attachments/refimg.jpg'
 import ServerBar from './ServerBar'
 import FCBar from './FCBar'
@@ -7,10 +7,12 @@ import NavView from './NavView'
 import ActivityTab from './ActivityTab'
 import DMs from './DMs'
 
+export const messageContext = createContext()
 
 const Home = ({user}) => {
   const [friends, setFriends] = useState([])
   const [dms, setDms] = useState(0)
+  const [messages, setMessages] = useState([])
   const [active, setActive] = useState({
     Online: true,
     All: false,
@@ -31,8 +33,24 @@ const Home = ({user}) => {
     }
   }, [user])
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (user) {
+        fetch(`/friends/${user.id}`, {
+          method: "GET"
+        })
+        .then(r => r.json())
+        .then(d => {
+          setFriends(d)
+        })
+      }
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
+    <messageContext.Provider value={{messages, setMessages}}>
       <div className='Home absolute h-screen w-screen select-none'>
         
         <div className='server-bar h-screen bg-zinc-200 absolute'>
@@ -51,6 +69,7 @@ const Home = ({user}) => {
           {!dms && <NavView active={active} setActive={setActive} friend={friends.map(e => e.friend).filter(e => e.id === dms.id)[0]}/>}
         </div>
       </div>
+    </messageContext.Provider>
     </>
   )
 }

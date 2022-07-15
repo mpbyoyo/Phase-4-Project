@@ -1,18 +1,22 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import DM from './DM'
 import HarmonyIcon from '../attachments/HarmonyIcon.png'
+import { messageContext } from './Home'
 
 const DMs = ({dms, user, setFriends}) => {
-  const [messages, setMessages] = useState([])
+  const {messages, setMessages} = useContext(messageContext)
   const [m, setM] = useState('')
 
   useEffect(() => {
-    fetch(`/messages/${dms.id}`, {
-      method: 'GET'
-    })
-    .then(r => r.json())
-    .then(d => setMessages(d))
-  }, [dms])
+    const interval = setInterval(() => {
+      fetch(`/messages/${dms.id}`, {
+        method: 'GET'
+      })
+      .then(r => r.json())
+      .then(d => setMessages(v => d))
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     fetch(`/friends/${user.id}`)
