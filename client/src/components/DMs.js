@@ -18,6 +18,15 @@ const DMs = ({dms, user, setFriends}) => {
     return () => clearInterval(interval);
   }, [dms]);
 
+
+  useEffect(() => {
+    fetch(`/messages/${dms.id}`, {
+      method: 'GET'
+    })
+    .then(r => r.json())
+    .then(d => setMessages(v => d))
+  }, [dms]);
+
   useEffect(() => {
     fetch(`/friends/${user.id}`)
       .then(r => r.json())
