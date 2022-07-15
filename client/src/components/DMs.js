@@ -28,7 +28,7 @@ const DMs = ({dms, user, setFriends}) => {
   }, [dms]);
 
   useEffect(() => {
-    fetch(`/friends/${user.id}`)
+    fetch(`/friends`)
       .then(r => r.json())
       .then(d => setFriends(d))
   }, [messages])

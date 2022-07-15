@@ -1,10 +1,8 @@
 import React, {useState, useEffect, createContext} from 'react'
-import refimg from '../attachments/refimg.jpg'
 import ServerBar from './ServerBar'
 import FCBar from './FCBar'
 import MainView from './MainView'
 import NavView from './NavView'
-import ActivityTab from './ActivityTab'
 import DMs from './DMs'
 
 export const messageContext = createContext()
@@ -23,7 +21,7 @@ const Home = ({user}) => {
 
   useEffect(() => {
     if (user) {
-      fetch(`/friends/${user.id}`, {
+      fetch(`/friends`, {
         method: "GET"
       })
       .then(r => r.json())
@@ -36,7 +34,7 @@ const Home = ({user}) => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (user) {
-        fetch(`/friends/${user.id}`, {
+        fetch(`/friends`, {
           method: "GET"
         })
         .then(r => r.json())
@@ -76,7 +74,7 @@ const Home = ({user}) => {
         </div>
 
         <div className='nav-view absolute bg-white top-0'>
-          {!dms && <NavView active={active} setActive={setActive} friend={friends.map(e => e.friend).filter(e => e.id === dms.id)[0]}/>}
+          {!dms && <NavView active={active} setActive={setActive}/>}
         </div>
       </div>
     </messageContext.Provider>

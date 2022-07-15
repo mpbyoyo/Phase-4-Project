@@ -46,7 +46,7 @@ const UserSettings = ({user}) => {
 
       <div className='user-settigns absolute w-full h-20 bg-gray-200 bottom-0'>
         <img src={user.pfp || HarmonyIcon} alt="pfp" className='pfp w-12 inline-block mt-3 ml-3 cursor-pointer' onClick={handleChangePfp}/>
-        <h1 className='inline-block absolute top-4 left-16 text-gray-600'>{user.username}</h1>
+        <h1 className='username-settings inline-block absolute top-4 left-16 text-gray-600'>{user.username}</h1>
 
         <img src={logouticon} alt="" className='cursor-pointer absolute right-1 top-1/2 -translate-y-1/2 w-8' onClick={handleLogout}/>
       </div>

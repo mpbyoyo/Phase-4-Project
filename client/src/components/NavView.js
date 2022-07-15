@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import friendicon from '../attachments/friendicon.png'
 
 const NavView = ({active, setActive, dms}) => {
@@ -14,6 +14,10 @@ const NavView = ({active, setActive, dms}) => {
     preActive[e.target.textContent] = true
     setActive(preActive)
   }
+
+  // useEffect(() => {
+
+  // }, [])
 
   const navTabs = 'nav-tabs inline-block text-center rounded-md hover:bg-gray-200 active:bg-gray-300 cursor-pointer transition-all duration-75 text-gray-600 ml-4'
 

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/messages/:recipient_id', to: 'messages#index'
 
   post '/addfriend', to: 'friends#create'
-  get '/friends/:user_id/', to: 'friends#index'
+  get '/friends', to: 'friends#index'
   get '/pending', to: 'friends#pending'
   delete '/friends/:id', to: 'friends#destroy'
   post '/acceptfriend', to: 'friends#accept'
