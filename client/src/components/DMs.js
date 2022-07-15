@@ -16,7 +16,7 @@ const DMs = ({dms, user, setFriends}) => {
       .then(d => setMessages(v => d))
     }, 100);
     return () => clearInterval(interval);
-  }, []);
+  }, [dms]);
 
   useEffect(() => {
     fetch(`/friends/${user.id}`)

@@ -48,6 +48,16 @@ const Home = ({user}) => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (dms) {
+      fetch(`/messages/${dms.id}`, {
+        method: 'GET'
+      })
+      .then(r => r.json())
+      .then(d => setMessages(d))
+    }
+  }, [dms]);
+
   return (
     <>
     <messageContext.Provider value={{messages, setMessages}}>
